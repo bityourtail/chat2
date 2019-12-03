@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.tian.dao.chat.ChatTalkMessageMapper">
+  <resultMap id="BaseResultMap" type="com.example.tian.dao.chat.entity.ChatTalkMessage">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="sender_user_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="receiver_user_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="msg_type" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="content" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="db_create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="db_update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, sender_user_id, receiver_user_id, msg_type, content, db_create_time, db_update_time
+  </sql>
+  <select id="selectByExample" parameterType="com.example.tian.dao.chat.entity.ChatTalkMessageExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from chat_talk_message
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from chat_talk_message
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from chat_talk_message
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.tian.dao.chat.entity.ChatTalkMessageExample">
+    delete from chat_talk_message
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.tian.dao.chat.entity.ChatTalkMessage">
+    insert into chat_talk_message (id, sender_user_id, receiver_user_id, 
+      msg_type, content, db_create_time, 
+      db_update_time)
+    values (#{id,jdbcType=BIGINT}, #{senderUserId,jdbcType=VARCHAR}, #{receiverUserId,jdbcType=VARCHAR}, 
+      #{msgType,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{dbCreateTime,jdbcType=TIMESTAMP}, 
+      #{dbUpdateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.tian.dao.chat.entity.ChatTalkMessage">
+    insert into chat_talk_message
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="senderUserId != null">
+        sender_user_id,
+      </if>
+      <if test="receiverUserId != null">
+        receiver_user_id,
+      </if>
+      <if test="msgType != null">
+        msg_type,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="dbCreateTime != null">
+        db_create_time,
+      </if>
+      <if test="dbUpdateTime != null">
+        db_update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="senderUserId != null">
+        #{senderUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverUserId != null">
+        #{receiverUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="msgType != null">
+        #{msgType,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="dbCreateTime != null">
+        #{dbCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dbUpdateTime != null">
+        #{dbUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.tian.dao.chat.entity.ChatTalkMessageExample" resultType="java.lang.Long">
+    select count(*) from chat_talk_message
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update chat_talk_message
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.senderUserId != null">
+        sender_user_id = #{record.senderUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiverUserId != null">
+        receiver_user_id = #{record.receiverUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.msgType != null">
+        msg_type = #{record.msgType,jdbcType=INTEGER},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dbCreateTime != null">
+        db_create_time = #{record.dbCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dbUpdateTime != null">
+        db_update_time = #{record.dbUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update chat_talk_message
+    set id = #{record.id,jdbcType=BIGINT},
+      sender_user_id = #{record.senderUserId,jdbcType=VARCHAR},
+      receiver_user_id = #{record.receiverUserId,jdbcType=VARCHAR},
+      msg_type = #{record.msgType,jdbcType=INTEGER},
+      content = #{record.content,jdbcType=VARCHAR},
+      db_create_time = #{record.dbCreateTime,jdbcType=TIMESTAMP},
+      db_update_time = #{record.dbUpdateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.tian.dao.chat.entity.ChatTalkMessage">
+    update chat_talk_message
+    <set>
+      <if test="senderUserId != null">
+        sender_user_id = #{senderUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverUserId != null">
+        receiver_user_id = #{receiverUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="msgType != null">
+        msg_type = #{msgType,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="dbCreateTime != null">
+        db_create_time = #{dbCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dbUpdateTime != null">
+        db_update_time = #{dbUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.tian.dao.chat.entity.ChatTalkMessage">
+    update chat_talk_message
+    set sender_user_id = #{senderUserId,jdbcType=VARCHAR},
+      receiver_user_id = #{receiverUserId,jdbcType=VARCHAR},
+      msg_type = #{msgType,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR},
+      db_create_time = #{dbCreateTime,jdbcType=TIMESTAMP},
+      db_update_time = #{dbUpdateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

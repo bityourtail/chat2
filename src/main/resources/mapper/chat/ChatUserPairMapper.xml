@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.tian.dao.chat.ChatUserPairMapper">
+  <resultMap id="BaseResultMap" type="com.example.tian.dao.chat.entity.ChatUserPair">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="pair_user_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="paired_user_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="status" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="db_create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="db_update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, pair_user_id, paired_user_id, status, db_create_time, db_update_time
+  </sql>
+  <select id="selectByExample" parameterType="com.example.tian.dao.chat.entity.ChatUserPairExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from chat_user_pair
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from chat_user_pair
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from chat_user_pair
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.tian.dao.chat.entity.ChatUserPairExample">
+    delete from chat_user_pair
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.tian.dao.chat.entity.ChatUserPair">
+    insert into chat_user_pair (id, pair_user_id, paired_user_id, 
+      status, db_create_time, db_update_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{pairUserId,jdbcType=VARCHAR}, #{pairedUserId,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{dbCreateTime,jdbcType=TIMESTAMP}, #{dbUpdateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.tian.dao.chat.entity.ChatUserPair">
+    insert into chat_user_pair
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="pairUserId != null">
+        pair_user_id,
+      </if>
+      <if test="pairedUserId != null">
+        paired_user_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="dbCreateTime != null">
+        db_create_time,
+      </if>
+      <if test="dbUpdateTime != null">
+        db_update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="pairUserId != null">
+        #{pairUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="pairedUserId != null">
+        #{pairedUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="dbCreateTime != null">
+        #{dbCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dbUpdateTime != null">
+        #{dbUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.tian.dao.chat.entity.ChatUserPairExample" resultType="java.lang.Long">
+    select count(*) from chat_user_pair
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update chat_user_pair
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.pairUserId != null">
+        pair_user_id = #{record.pairUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pairedUserId != null">
+        paired_user_id = #{record.pairedUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.dbCreateTime != null">
+        db_create_time = #{record.dbCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dbUpdateTime != null">
+        db_update_time = #{record.dbUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update chat_user_pair
+    set id = #{record.id,jdbcType=BIGINT},
+      pair_user_id = #{record.pairUserId,jdbcType=VARCHAR},
+      paired_user_id = #{record.pairedUserId,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      db_create_time = #{record.dbCreateTime,jdbcType=TIMESTAMP},
+      db_update_time = #{record.dbUpdateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.tian.dao.chat.entity.ChatUserPair">
+    update chat_user_pair
+    <set>
+      <if test="pairUserId != null">
+        pair_user_id = #{pairUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="pairedUserId != null">
+        paired_user_id = #{pairedUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="dbCreateTime != null">
+        db_create_time = #{dbCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dbUpdateTime != null">
+        db_update_time = #{dbUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.tian.dao.chat.entity.ChatUserPair">
+    update chat_user_pair
+    set pair_user_id = #{pairUserId,jdbcType=VARCHAR},
+      paired_user_id = #{pairedUserId,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      db_create_time = #{dbCreateTime,jdbcType=TIMESTAMP},
+      db_update_time = #{dbUpdateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

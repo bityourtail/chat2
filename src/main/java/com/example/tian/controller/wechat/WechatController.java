@@ -48,7 +48,7 @@ public class WechatController {
 
             try {
                 List<WechatBasicMsgDto> msgDtoList =  wechatReflectService.reflectStatus(msgDto);
-                //发送消息
+                //发送消息sss
                 for(WechatBasicMsgDto msg:msgDtoList){
                     //原来【接收消息用户】变为回复时【发送消息用户】
                     String result = WechatBasicMsgDto.initText(msg, msgDto.getToUserName());

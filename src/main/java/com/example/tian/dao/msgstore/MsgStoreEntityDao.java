@@ -20,7 +20,7 @@ public class MsgStoreEntityDao {
     //取消息
     public List<MsgStoreEntity> getMsg(String userId,String key){
         MsgStoreEntityExample example = new MsgStoreEntityExample();
-        example.createCriteria().andUserIdEqualTo(userId).andKeyLike("%"+key+"%");
+        example.createCriteria().andUserIdEqualTo(userId).andVKeyLike("%"+key+"%");
         return msgStoreEntityMapper.selectByExample(example);
     }
 }

@@ -7,19 +7,19 @@ public class MsgStoreEntity {
 
     private String userId;
 
-    private String key;
+    private String vKey;
 
-    private String value;
+    private String vValue;
 
     private Date dbCreateTime;
 
     private Date dbUpdateTime;
 
-    public MsgStoreEntity(Long id, String userId, String key, String value, Date dbCreateTime, Date dbUpdateTime) {
+    public MsgStoreEntity(Long id, String userId, String vKey, String vValue, Date dbCreateTime, Date dbUpdateTime) {
         this.id = id;
         this.userId = userId;
-        this.key = key;
-        this.value = value;
+        this.vKey = vKey;
+        this.vValue = vValue;
         this.dbCreateTime = dbCreateTime;
         this.dbUpdateTime = dbUpdateTime;
     }
@@ -44,20 +44,20 @@ public class MsgStoreEntity {
         this.userId = userId == null ? null : userId.trim();
     }
 
-    public String getKey() {
-        return key;
+    public String getvKey() {
+        return vKey;
     }
 
-    public void setKey(String key) {
-        this.key = key == null ? null : key.trim();
+    public void setvKey(String vKey) {
+        this.vKey = vKey == null ? null : vKey.trim();
     }
 
-    public String getValue() {
-        return value;
+    public String getvValue() {
+        return vValue;
     }
 
-    public void setValue(String value) {
-        this.value = value == null ? null : value.trim();
+    public void setvValue(String vValue) {
+        this.vValue = vValue == null ? null : vValue.trim();
     }
 
     public Date getDbCreateTime() {

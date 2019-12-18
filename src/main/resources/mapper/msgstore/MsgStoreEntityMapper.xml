@@ -5,8 +5,8 @@
     <constructor>
       <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
       <arg column="user_id" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="key" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="value" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="v_key" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="v_value" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="db_create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="db_update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
     </constructor>
@@ -70,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_id, key, value, db_create_time, db_update_time
+    id, user_id, v_key, v_value, db_create_time, db_update_time
   </sql>
   <select id="selectByExample" parameterType="com.example.tian.dao.msgstore.entity.MsgStoreEntityExample" resultMap="BaseResultMap">
     select
@@ -103,11 +103,11 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.example.tian.dao.msgstore.entity.MsgStoreEntity">
-    insert into msg_store (id, user_id, key, 
-      value, db_create_time, db_update_time
+    insert into msg_store (id, user_id, v_key, 
+      v_value, db_create_time, db_update_time
       )
-    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=VARCHAR}, #{key,jdbcType=VARCHAR}, 
-      #{value,jdbcType=VARCHAR}, #{dbCreateTime,jdbcType=TIMESTAMP}, #{dbUpdateTime,jdbcType=TIMESTAMP}
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=VARCHAR}, #{vKey,jdbcType=VARCHAR}, 
+      #{vValue,jdbcType=VARCHAR}, #{dbCreateTime,jdbcType=TIMESTAMP}, #{dbUpdateTime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.example.tian.dao.msgstore.entity.MsgStoreEntity">
@@ -119,11 +119,11 @@
       <if test="userId != null">
         user_id,
       </if>
-      <if test="key != null">
-        key,
+      <if test="vKey != null">
+        v_key,
       </if>
-      <if test="value != null">
-        value,
+      <if test="vValue != null">
+        v_value,
       </if>
       <if test="dbCreateTime != null">
         db_create_time,
@@ -139,11 +139,11 @@
       <if test="userId != null">
         #{userId,jdbcType=VARCHAR},
       </if>
-      <if test="key != null">
-        #{key,jdbcType=VARCHAR},
+      <if test="vKey != null">
+        #{vKey,jdbcType=VARCHAR},
       </if>
-      <if test="value != null">
-        #{value,jdbcType=VARCHAR},
+      <if test="vValue != null">
+        #{vValue,jdbcType=VARCHAR},
       </if>
       <if test="dbCreateTime != null">
         #{dbCreateTime,jdbcType=TIMESTAMP},
@@ -168,11 +168,11 @@
       <if test="record.userId != null">
         user_id = #{record.userId,jdbcType=VARCHAR},
       </if>
-      <if test="record.key != null">
-        key = #{record.key,jdbcType=VARCHAR},
+      <if test="record.vKey != null">
+        v_key = #{record.vKey,jdbcType=VARCHAR},
       </if>
-      <if test="record.value != null">
-        value = #{record.value,jdbcType=VARCHAR},
+      <if test="record.vValue != null">
+        v_value = #{record.vValue,jdbcType=VARCHAR},
       </if>
       <if test="record.dbCreateTime != null">
         db_create_time = #{record.dbCreateTime,jdbcType=TIMESTAMP},
@@ -189,8 +189,8 @@
     update msg_store
     set id = #{record.id,jdbcType=BIGINT},
       user_id = #{record.userId,jdbcType=VARCHAR},
-      key = #{record.key,jdbcType=VARCHAR},
-      value = #{record.value,jdbcType=VARCHAR},
+      v_key = #{record.vKey,jdbcType=VARCHAR},
+      v_value = #{record.vValue,jdbcType=VARCHAR},
       db_create_time = #{record.dbCreateTime,jdbcType=TIMESTAMP},
       db_update_time = #{record.dbUpdateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
@@ -203,11 +203,11 @@
       <if test="userId != null">
         user_id = #{userId,jdbcType=VARCHAR},
       </if>
-      <if test="key != null">
-        key = #{key,jdbcType=VARCHAR},
+      <if test="vKey != null">
+        v_key = #{vKey,jdbcType=VARCHAR},
       </if>
-      <if test="value != null">
-        value = #{value,jdbcType=VARCHAR},
+      <if test="vValue != null">
+        v_value = #{vValue,jdbcType=VARCHAR},
       </if>
       <if test="dbCreateTime != null">
         db_create_time = #{dbCreateTime,jdbcType=TIMESTAMP},
@@ -221,8 +221,8 @@
   <update id="updateByPrimaryKey" parameterType="com.example.tian.dao.msgstore.entity.MsgStoreEntity">
     update msg_store
     set user_id = #{userId,jdbcType=VARCHAR},
-      key = #{key,jdbcType=VARCHAR},
-      value = #{value,jdbcType=VARCHAR},
+      v_key = #{vKey,jdbcType=VARCHAR},
+      v_value = #{vValue,jdbcType=VARCHAR},
       db_create_time = #{dbCreateTime,jdbcType=TIMESTAMP},
       db_update_time = #{dbUpdateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}

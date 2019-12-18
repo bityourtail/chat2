@@ -40,8 +40,8 @@ public class MsgStoreService {
                 value = content.substring(i);
             }
         }
-        record.setKey(key.trim());
-        record.setValue(value.trim());
+        record.setvKey(key.trim());
+        record.setvValue(value.trim());
     }
 
     //取消息
@@ -56,7 +56,7 @@ public class MsgStoreService {
             result+="该关键词有多个相近的答案，尝试更精确试试";
         }
         for(int i=0;i<list.size();i++){
-            result+="\r\n key: "+list.get(i).getKey()+"  value: "+list.get(i).getValue();
+            result+="\r\n key: "+list.get(i).getvKey()+"  value: "+list.get(i).getvValue();
         }
         return result;
     }

@@ -3,8 +3,6 @@ package com.example.tian.dto.wechatApi;
 import com.thoughtworks.xstream.XStream;
 import lombok.Data;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
 @Data
@@ -24,13 +22,13 @@ public class WechatBasicMsgDto {
     /**
      * 初始化回复消息
      */
-    public static String initText(WechatBasicMsgDto msg,String fromUserName) {
+    public static String initText(WechatBasicMsgDto msg,String content) {
         WechatResponseDto text = new WechatResponseDto();
-        text.setFromUserName(fromUserName);
-        text.setToUserName(msg.getToUserName());
+        text.setFromUserName(msg.getToUserName());
+        text.setToUserName(msg.getFromUserName());
         text.setMsgType("text");
         text.setCreateTime(new Date().getTime());//创建当前时间为消息时间
-        text.setContent(msg.getContent());
+        text.setContent(content);
         return TextMessageToXml(text);
     }
 
